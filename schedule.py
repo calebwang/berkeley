@@ -5,6 +5,7 @@ import re
 import shutil
 from datetime import datetime
 from mechanize import Browser
+deptabbreviations = {'e':'engineering', 'cs':'computer science', 'ee':'electrical engineering', 'psych':'psychology'}
 
 class data:
     def __init__(self):
@@ -14,6 +15,8 @@ class data:
     def parsename(self, filename):
         dept = re.search('[a-z]*', filename).group(0)
         cid = re.search('[0-9]{1,3}[a-z]{0,2}', filename).group(0)
+        if dept in deptabbreviations:
+            dept = deptabbreviations[dept]
         return (dept, cid)
 
     def init(self, file, ccn, dept = '', cid = ''):
@@ -26,14 +29,16 @@ class data:
                     shutil.move(file, file + '~')
                     dest = open(file, 'w')
                     source = open(file + '~', 'r')
+                    checked = False
                     for line in source:
-                        if re.search('[0-9]{5}', line):
+                        if (not checked) and re.search('[0-9]{5}', line):
                             ccns = re.findall('[0-9]{5}', line)
                             newline = 'ccn: '
                             for oldccn in ccns:
                                 newline = newline + oldccn + ' '
                             newline = newline + str(ccn) + '\n'
                             dest.write(newline)
+                            checked = True
                         else:
                             dest.write(line)
                     dest.close()
@@ -59,7 +64,7 @@ class data:
         try:
             files = os.listdir('.')
             for pathname in files:
-                if re.search('[a-z]*[0-9]{1,3}[a-z]{0,2}', pathname) == None:
+                if re.search('[0-9]', pathname) == None:
                     continue
                 file = open(self.basepath + pathname, 'r')
                 ccns = re.findall('[0-9]{5}', file.read())
@@ -80,8 +85,8 @@ class data:
         for line in f:
             data = re.split(' ', line)
             self.init(data[0], data[1][0:5])
+        f.close()    
         self.update()
-        f.close()
         
 class reader:
     def __init__(self):
@@ -91,7 +96,7 @@ class reader:
         try:
             url = 'http://infobears.berkeley.edu:3400/osc/?_InField1=RESTRIC&_InField2=%s&_InField3=12D2'%ccn
             page = self.br.open(url).read()
-            lec = re.findall('[0-9]{3}', re.findall('[0-9]{3} [A-Z]{3}', page)[0])[0]
+            lec = re.findall('[0-9]{3} [A-Z]{3}', page)[0][0:3]
             print lec
             info = re.split('enrollment information', page)[2]
             data = re.findall('[0-9]{1,4}', info)
@@ -102,5 +107,8 @@ class reader:
             print e, '7'
             return ('000', '0', '0')
 
-d = data()
-d.batchupdate('classes')
+def main():
+    d = data()
+    d.batchupdate('classes')
+
+main()
