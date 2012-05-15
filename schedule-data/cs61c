@@ -1,3 +1,8 @@
-department: computer science
+department: cs
 course number: 61c
 ccn: 26346
+
+------------------------------------------------------------
+          Date             enrolled  capacity  percent full
+Tue May 15 13:25:45 2012     333       416         0.800
+Tue May 15 13:28:45 2012     333       416         0.800
