@@ -22,7 +22,7 @@ class data:
                 f = open(file)
                 text = f.read()
                 f.close()
-                if str(ccn) not in text:
+                if not re.search(str(ccn), text):
                     shutil.move(file, file + '~')
                     dest = open(file, 'w')
                     source = open(file + '~', 'r')
@@ -32,7 +32,7 @@ class data:
                             newline = 'ccn: '
                             for oldccn in ccns:
                                 newline = newline + oldccn + ' '
-                            newline = newline + ccn + '\n'
+                            newline = newline + str(ccn) + '\n'
                             dest.write(newline)
                         else:
                             dest.write(line)
@@ -79,7 +79,7 @@ class data:
         f = open(filename)
         for line in f:
             data = re.split(' ', line)
-            self.init(data[0], data[1])
+            self.init(data[0], data[1][0:5])
         self.update()
         f.close()
         
