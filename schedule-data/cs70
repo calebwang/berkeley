@@ -1,10 +1,7 @@
-department: cs
+department: computer science
 course number: 70
 ccn: 26427
 --------------------------------------------------------------------
           Date             lecture  enrolled  capacity  percent full
-Tue May 15 14:59:45 2012     001       169       272         0.621
-Tue May 15 15:00:02 2012     001       169       272         0.621
-Tue May 15 15:09:59 2012     001       169       272         0.621
-Tue May 15 15:19:23 2012     001       169       272         0.621
 Tue May 15 15:23:27 2012     001       169       272         0.621
+Wed May 16 14:34:50 2012     001       170       272         0.625

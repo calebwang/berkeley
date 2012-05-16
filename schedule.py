@@ -9,7 +9,7 @@ deptabbreviations = {'e':'engineering', 'cs':'computer science', 'ee':'electrica
 
 class data:
     def __init__(self):
-        self.basepath = '/home/caleb/git/berkeley/schedule-data/'
+        self.basepath = '~/git/berkeley/schedule-data/'
         os.chdir(self.basepath)
 
     def parsename(self, filename):
