@@ -2,6 +2,5 @@ department: computer science
 course number: 61c
 ccn: 26346
 --------------------------------------------------------------------
-          Date             lecture  enrolled  capacity  percent full
-Tue May 15 15:23:33 2012     001       333       416         0.800
-Wed May 16 14:34:56 2012     001       334       416         0.803
+          Date             lecture  enrolled  capacity   waitlist   percent full
+Tue Aug  7 02:58:37 2012     001       416       416        92       122.115%

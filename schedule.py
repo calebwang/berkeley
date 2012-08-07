@@ -54,7 +54,7 @@ class data:
                 f.write('department: %s\n'%dept)
                 f.write('course number: %s\n'%cid)
                 f.write('ccn: %s\n'%ccn)
-                f.write('--------------------------------------------------------------------\n')
+                f.write('-------------------------------------------------------------------------------\n')
                 f.write('          Date             lecture  enrolled  capacity   waitlist   percent full\n')
         except IOError, e: 
             print e, '2'
@@ -74,7 +74,7 @@ class data:
                     datestring = datetime.ctime(datetime.today())
                     r = reader()
                     data = r.check(ccn)
-                    newline = datestring + '     ' + data[0] +  '       ' +  data[1] + '       '  + data[2] + '         '+ data[3] + '         ' + '%.3f'%(int(data[1]+data[3])*1.0/int(data[2]))
+                    newline = datestring + '     ' + data[0] +  '       ' +  data[1] + '       '  + data[2] + '        '+ data[3] + '       ' + '%.3f'%((int(data[1])+int(data[3]))*100.0/int(data[2])) + '%'
                     file = open(pathname, 'a')
                     file.write(newline + '\n')
         except IOError, e:

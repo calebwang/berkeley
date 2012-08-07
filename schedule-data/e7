@@ -2,8 +2,6 @@ department: engineering
 course number: 7
 ccn: 27603 27606
 --------------------------------------------------------------------
-          Date             lecture  enrolled  capacity  percent full
-Tue May 15 15:23:39 2012     001       58       200         0.290
-Tue May 15 15:23:41 2012     002       98       200         0.490
-Wed May 16 14:35:03 2012     001       58       200         0.290
-Wed May 16 14:35:13 2012     002       97       200         0.485
+          Date             lecture  enrolled  capacity   waitlist   percent full
+Tue Aug  7 02:58:42 2012     001       174       200        0       87.000%
+Tue Aug  7 02:58:45 2012     002       200       200        44       122.000%

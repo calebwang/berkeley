@@ -2,6 +2,5 @@ department: psychology
 course number: 167ac
 ccn: 74435
 --------------------------------------------------------------------
-          Date             lecture  enrolled  capacity  percent full
-Tue May 15 15:23:36 2012     001       73       206         0.354
-Wed May 16 14:35:00 2012     001       73       206         0.354
+          Date             lecture  enrolled  capacity   waitlist   percent full
+Tue Aug  7 02:58:51 2012     001       162       206        0       78.641%

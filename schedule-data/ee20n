@@ -2,6 +2,5 @@ department: electrical engineering
 course number: 20n
 ccn: 25003
 --------------------------------------------------------------------
-          Date             lecture  enrolled  capacity  percent full
-Tue May 15 15:23:30 2012     001       79       292         0.271
-Wed May 16 14:34:53 2012     001       80       292         0.274
+          Date             lecture  enrolled  capacity   waitlist   percent full
+Tue Aug  7 02:58:48 2012     001       293       293        68       123.208%
