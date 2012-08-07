@@ -9,7 +9,7 @@ deptabbreviations = {'e':'engineering', 'cs':'computer science', 'ee':'electrica
 
 class data:
     def __init__(self):
-        self.basepath = '~/git/berkeley/schedule-data/'
+        self.basepath = 'schedule-data/'
         os.chdir(self.basepath)
 
     def parsename(self, filename):
@@ -55,7 +55,7 @@ class data:
                 f.write('course number: %s\n'%cid)
                 f.write('ccn: %s\n'%ccn)
                 f.write('--------------------------------------------------------------------\n')
-                f.write('          Date             lecture  enrolled  capacity  percent full\n')
+                f.write('          Date             lecture  enrolled  capacity   waitlist   percent full\n')
         except IOError, e: 
             print e, '2'
         
@@ -66,7 +66,7 @@ class data:
             for pathname in files:
                 if re.search('[0-9]', pathname) == None:
                     continue
-                file = open(self.basepath + pathname, 'r')
+                file = open(pathname, 'r')
                 ccns = re.findall('[0-9]{5}', file.read())
                 file.close()
                 for ccn in ccns:
@@ -74,8 +74,8 @@ class data:
                     datestring = datetime.ctime(datetime.today())
                     r = reader()
                     data = r.check(ccn)
-                    newline = datestring + '     ' + data[0] +  '       ' +  data[1] + '       '  + data[2] + '         ' + '%.3f'%(int(data[1])*1.0/int(data[2]))
-                    file = open(self.basepath + pathname, 'a')
+                    newline = datestring + '     ' + data[0] +  '       ' +  data[1] + '       '  + data[2] + '         '+ data[3] + '         ' + '%.3f'%(int(data[1]+data[3])*1.0/int(data[2]))
+                    file = open(pathname, 'a')
                     file.write(newline + '\n')
         except IOError, e:
             print e, '5'
@@ -100,9 +100,17 @@ class reader:
             print lec
             info = re.split('enrollment information', page)[2]
             data = re.findall('[0-9]{1,4}', info)
-            enrolled = data[1]
-            limit = data[2]
-            return (lec, enrolled, limit)
+            if re.search('full', info):
+                url = 'http://osoc.berkeley.edu/OSOC/osoc?y=0&p_ccn=%s&p_term=FL'%ccn
+                page = self.br.open(url).read()
+                limit = re.match('[0-9]{2,3}',re.split('Limit:', page)[1]).group(0)
+                waitlist = data[1]
+                return (lec, limit, limit, waitlist)
+            else:
+                data = re.findall('[0-9]{1,4}', info)
+                enrolled = data[1]
+                limit = data[2]
+                return (lec, enrolled, limit, '0')
         except IOError, e:
             print e, '7'
             return ('000', '0', '0')
