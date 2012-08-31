@@ -7,7 +7,8 @@ from datetime import datetime
 from mechanize import Browser
 deptabbreviations = {'e':'engineering', 'cs':'computer science', 'ee':'electrical engineering', 'psych':'psychology'}
 
-class data:
+class updater:
+
     def __init__(self):
         self.basepath = 'schedule-data/'
         os.chdir(self.basepath)
@@ -72,7 +73,7 @@ class data:
                 for ccn in ccns:
                     print pathname, ccn
                     datestring = datetime.ctime(datetime.today())
-                    r = reader()
+                    r = remote()
                     data = r.check(ccn)
                     newline = datestring + '     ' + data[0] +  '       ' +  data[1] + '       '  + data[2] + '        '+ data[3] + '       ' + '%.3f'%((int(data[1])+int(data[3]))*100.0/int(data[2])) + '%'
                     file = open(pathname, 'a')
@@ -88,7 +89,8 @@ class data:
         f.close()    
         self.update()
         
-class reader:
+class remote:
+
     def __init__(self):
         self.br = Browser()
 
@@ -116,7 +118,7 @@ class reader:
             return ('000', '0', '0')
 
 def main():
-    d = data()
-    d.batchupdate('classes')
+    u = updater()
+    u.batchupdate('classes')
 
 main()
