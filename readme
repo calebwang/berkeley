@@ -1,1 +1,2 @@
 A compilation of scripts and scrapers that deal with websites under the berkeley.edu domain
+Relies on the Python mechanize library
