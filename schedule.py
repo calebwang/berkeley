@@ -89,8 +89,6 @@ class data:
         self.update()
         
 class reader:
-    def __init__(self):
-        self.br = Browser()
 
     def check(self, ccn):
         try:
