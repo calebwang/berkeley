@@ -4,7 +4,7 @@ import os
 import re
 import shutil
 from datetime import datetime
-from mechanize import Browser
+import urllib2
 deptabbreviations = {'e':'engineering', 'cs':'computer science', 'ee':'electrical engineering', 'psych':'psychology'}
 
 class data:
@@ -94,15 +94,15 @@ class reader:
 
     def check(self, ccn):
         try:
-            url = 'http://infobears.berkeley.edu:3400/osc/?_InField1=RESTRIC&_InField2=%s&_InField3=12D2'%ccn
-            page = self.br.open(url).read()
+            url = 'http://telebears.berkeley.edu/enrollment-osoc/osc/?_InField1=RESTRIC&_InField2=%s&_InField3=12D2'%ccn
+            page = urllib2.urlopen(url).read()
             lec = re.findall('[0-9]{3} [A-Z]{3}', page)[0][0:3]
             print lec
             info = re.split('enrollment information', page)[2]
             data = re.findall('[0-9]{1,4}', info)
             if re.search('full', info):
                 url = 'http://osoc.berkeley.edu/OSOC/osoc?y=0&p_ccn=%s&p_term=FL'%ccn
-                page = self.br.open(url).read()
+                page = urllib2.urlopen(url).read()
                 limit = re.match('[0-9]{2,3}',re.split('Limit:', page)[1]).group(0)
                 waitlist = data[1]
                 return (lec, limit, limit, waitlist)
